@@ -1,4 +1,4 @@
-import { SECTIONS } from "@/data/questions";
+import { SECTIONS } from "../data/questions";
 
 export const BENCHMARK_SCORES: Record<string, number> = {
   expertise_audit: 78,

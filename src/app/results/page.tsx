@@ -6,7 +6,7 @@ import CompetencyRadar from "@/components/results/CompetencyRadar";
 import ReadinessScore from "@/components/results/ReadinessScore";
 import AreaFeedback from "@/components/results/AreaFeedback";
 import Button from "@/components/ui/Button";
-import { SECTIONS } from "@/data/questions";
+import { SECTIONS } from "../../data/questions";
 
 interface ResultsData {
   overallScore: number;

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import CompetencyRadar from "@/components/results/CompetencyRadar";
 import AreaFeedback from "@/components/results/AreaFeedback";
-import { SECTIONS } from "@/data/questions";
+import { SECTIONS } from "../../../../data/questions";
 
 interface UserDetail {
   id: string;

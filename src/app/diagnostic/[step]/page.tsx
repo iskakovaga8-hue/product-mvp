@@ -1,5 +1,5 @@
 import DiagnosticWizard from "@/components/diagnostic/DiagnosticWizard";
-import { TOTAL_STEPS } from "@/data/questions";
+import { TOTAL_STEPS } from "../../../data/questions";
 import { redirect } from "next/navigation";
 
 interface Props {

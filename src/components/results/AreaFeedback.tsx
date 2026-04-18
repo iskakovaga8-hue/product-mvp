@@ -1,6 +1,6 @@
 "use client";
 
-import { SECTIONS } from "@/data/questions";
+import { SECTIONS } from "../../data/questions";
 import { BENCHMARK_SCORES } from "@/lib/scoring";
 
 interface AreaFeedbackProps {
