@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { SECTIONS, TOTAL_STEPS } from "@/data/questions";
+import { SECTIONS, TOTAL_STEPS } from "../../data/questions";
 import LikertQuestion from "./LikertQuestion";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 import Button from "@/components/ui/Button";
