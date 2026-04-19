@@ -11,7 +11,7 @@ export default function CompetencyRadar({
   showBenchmark = true,
   size = 300,
 }: CompetencyRadarProps) {
-  const padding = 110;
+  const padding = 100;
   const totalSize = size + padding * 2;
   const cx = totalSize / 2;
   const cy = totalSize / 2;
@@ -57,9 +57,12 @@ export default function CompetencyRadar({
     const r = radius + 26;
     const x = cx + r * Math.cos(angle);
     const y = cy + r * Math.sin(angle);
+    // For right-side labels: anchor="end" so text grows leftward (never clips right edge)
+    // For left-side labels: anchor="start" so text grows rightward
+    // For top/bottom: anchor="middle"
     let anchor: "start" | "middle" | "end" = "middle";
-    if (Math.cos(angle) < -0.1) anchor = "end";
-    else if (Math.cos(angle) > 0.1) anchor = "start";
+    if (Math.cos(angle) > 0.1) anchor = "end";
+    else if (Math.cos(angle) < -0.1) anchor = "start";
     return { x, y, anchor };
   };
   return (
@@ -68,7 +71,6 @@ export default function CompetencyRadar({
       width="100%"
       height="auto"
       className="mx-auto block"
-      overflow="visible"
     >
       {/* Grid polygons */}
       {Array.from({ length: levels }, (_, i) => {
