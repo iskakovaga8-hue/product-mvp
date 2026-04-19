@@ -48,7 +48,15 @@ export async function POST(request: Request) {
     session.email = user.email;
     await session.save();
 
-    return NextResponse.json({ userId: user.id, redirectTo: "/diagnostic/1" });
+    // Check if user already completed diagnostic
+    const completed = await queryOne(
+      "SELECT id FROM diagnostic_results WHERE user_id = $1",
+      [user.id]
+    );
+
+    const redirectTo = completed ? "/results" : "/diagnostic/1";
+
+    return NextResponse.json({ userId: user.id, redirectTo });
   } catch (error) {
     console.error("Login error:", error);
     return NextResponse.json(
