@@ -71,7 +71,7 @@ export default function ResultsPage() {
           <div className="bg-navy-light rounded-2xl p-8 border border-gold/20 flex items-center justify-center animate-fade-in">
             <ReadinessScore score={data.overallScore} />
           </div>
-          <div className="bg-navy-light rounded-2xl p-8 border border-gold/20 animate-fade-in">
+          <div className="bg-navy-light rounded-2xl p-8 border border-gold/20 animate-fade-in overflow-visible">
             <h2 className="text-lg font-heading font-semibold text-white mb-4 text-center">
               Карта компетенций
             </h2>
