@@ -61,7 +61,7 @@ export default function CompetencyRadar({
     index: number
   ): { x: number; y: number; anchor: "start" | "middle" | "end" } => {
     const angle = (Math.PI * 2 * index) / n - Math.PI / 2;
-    const r = radius + 36;
+    const r = radius + 22;
     const x = cx + r * Math.cos(angle);
     const y = cy + r * Math.sin(angle);
     let anchor: "start" | "middle" | "end" = "middle";
