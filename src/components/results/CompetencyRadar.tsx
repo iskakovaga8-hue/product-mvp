@@ -15,11 +15,12 @@ export default function CompetencyRadar({
 }: CompetencyRadarProps) {
   const cx = size / 2;
   const cy = size / 2;
-  const radius = size * 0.38;
+  const radius = size * 0.33;
   const levels = 5;
   const sections = SECTIONS.map((s) => s.key);
   const labels = SECTIONS.map((s) => s.title);
   const n = sections.length;
+  const padding = 70;
 
   const getPoint = (index: number, value: number): [number, number] => {
     const angle = (Math.PI * 2 * index) / n - Math.PI / 2;
@@ -43,7 +44,7 @@ export default function CompetencyRadar({
     for (const word of words) {
       if (current.length === 0) {
         current = word;
-      } else if ((current + " " + word).length <= 12) {
+      } else if ((current + " " + word).length <= 13) {
         current += " " + word;
       } else {
         lines.push(current);
@@ -58,7 +59,7 @@ export default function CompetencyRadar({
     index: number
   ): { x: number; y: number; anchor: "start" | "middle" | "end" } => {
     const angle = (Math.PI * 2 * index) / n - Math.PI / 2;
-    const r = radius + 40;
+    const r = radius + 38;
     const x = cx + r * Math.cos(angle);
     const y = cy + r * Math.sin(angle);
     let anchor: "start" | "middle" | "end" = "middle";
@@ -67,14 +68,17 @@ export default function CompetencyRadar({
     return { x, y, anchor };
   };
 
+  const vbMin = -padding;
+  const vbSize = size + padding * 2;
+
   return (
     <svg
-      viewBox={`0 0 ${size} ${size}`}
+      viewBox={`${vbMin} ${vbMin} ${vbSize} ${vbSize}`}
       width={size}
       height={size}
-      className="mx-auto"
+      className="mx-auto overflow-visible"
     >
-      {/* Grid circles */}
+      {/* Grid polygons */}
       {Array.from({ length: levels }, (_, i) => {
         const r = (radius * (i + 1)) / levels;
         const points = sections
@@ -144,13 +148,17 @@ export default function CompetencyRadar({
       {labels.map((label, i) => {
         const { x, y, anchor } = getLabelPos(i);
         const lines = splitLabel(label);
-        const lineHeight = 14;
+        const lineHeight = 13;
         const totalHeight = (lines.length - 1) * lineHeight;
         return (
           <text
             key={i}
             textAnchor={anchor}
-            style={{ fontFamily: "var(--font-body)", fontSize: "10px", fill: "#9ca3af" }}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "11px",
+              fill: "#9ca3af",
+            }}
           >
             {lines.map((line, li) => (
               <tspan
