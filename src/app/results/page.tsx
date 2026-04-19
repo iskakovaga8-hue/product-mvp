@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import CompetencyRadar from "@/components/results/CompetencyRadar";
@@ -66,26 +65,26 @@ export default function ResultsPage() {
           </p>
         </div>
 
-        {/* Overall Score + Radar */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <div className="bg-navy-light rounded-2xl p-8 border border-gold/20 flex items-center justify-center animate-fade-in">
-            <ReadinessScore score={data.overallScore} />
-          </div>
-          <div className="bg-navy-light rounded-2xl p-8 border border-gold/20 animate-fade-in overflow-visible">
-            <h2 className="text-lg font-heading font-semibold text-white mb-4 text-center">
-              Карта компетенций
-            </h2>
-            <CompetencyRadar scores={data.sectionScores} />
-            <div className="flex justify-center gap-6 mt-4 text-xs text-gray-400">
-              <span className="flex items-center gap-2">
-                <span className="w-4 h-0.5 bg-gold inline-block" />
-                Ваш результат
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-4 h-0.5 inline-block" style={{ borderTop: "2px dashed #ff6b00" }} />
-                Успешные консультанты
-              </span>
-            </div>
+        {/* Overall Score */}
+        <div className="bg-navy-light rounded-2xl p-8 border border-gold/20 flex items-center justify-center animate-fade-in mb-8">
+          <ReadinessScore score={data.overallScore} />
+        </div>
+
+        {/* Radar - full width */}
+        <div className="bg-navy-light rounded-2xl pt-6 pb-4 px-4 border border-gold/20 animate-fade-in mb-8">
+          <h2 className="text-lg font-heading font-semibold text-white mb-4 text-center">
+            Карта компетенций
+          </h2>
+          <CompetencyRadar scores={data.sectionScores} />
+          <div className="flex justify-center gap-6 mt-4 text-xs text-gray-400">
+            <span className="flex items-center gap-2">
+              <span className="w-4 h-0.5 bg-gold inline-block" />
+              Ваш результат
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="w-4 h-0.5 inline-block" style={{ borderTop: "2px dashed #ff6b00" }} />
+              Успешные консультанты
+            </span>
           </div>
         </div>
 
