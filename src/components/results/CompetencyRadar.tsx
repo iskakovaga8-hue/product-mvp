@@ -13,7 +13,7 @@ export default function CompetencyRadar({
   showBenchmark = true,
   size = 300,
 }: CompetencyRadarProps) {
-  const padding = 60;
+  const padding = 90; 
   const totalSize = size + padding * 2;
   const cx = totalSize / 2;
   const cy = totalSize / 2;
