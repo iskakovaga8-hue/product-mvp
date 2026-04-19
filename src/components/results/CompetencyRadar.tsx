@@ -13,14 +13,15 @@ export default function CompetencyRadar({
   showBenchmark = true,
   size = 400,
 }: CompetencyRadarProps) {
-  const cx = size / 2;
-  const cy = size / 2;
+  const padding = 70;
+  const totalSize = size + padding * 2;
+  const cx = totalSize / 2;
+  const cy = totalSize / 2;
   const radius = size * 0.33;
   const levels = 5;
   const sections = SECTIONS.map((s) => s.key);
   const labels = SECTIONS.map((s) => s.title);
   const n = sections.length;
-  const padding = 70;
 
   const getPoint = (index: number, value: number): [number, number] => {
     const angle = (Math.PI * 2 * index) / n - Math.PI / 2;
@@ -59,7 +60,7 @@ export default function CompetencyRadar({
     index: number
   ): { x: number; y: number; anchor: "start" | "middle" | "end" } => {
     const angle = (Math.PI * 2 * index) / n - Math.PI / 2;
-    const r = radius + 38;
+    const r = radius + 40;
     const x = cx + r * Math.cos(angle);
     const y = cy + r * Math.sin(angle);
     let anchor: "start" | "middle" | "end" = "middle";
@@ -68,15 +69,12 @@ export default function CompetencyRadar({
     return { x, y, anchor };
   };
 
-  const vbMin = -padding;
-  const vbSize = size + padding * 2;
-
   return (
     <svg
-      viewBox={`${vbMin} ${vbMin} ${vbSize} ${vbSize}`}
-      width={size}
-      height={size}
-      className="mx-auto overflow-visible"
+      viewBox={`0 0 ${totalSize} ${totalSize}`}
+      width={totalSize}
+      height={totalSize}
+      className="mx-auto"
     >
       {/* Grid polygons */}
       {Array.from({ length: levels }, (_, i) => {
