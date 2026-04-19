@@ -99,7 +99,7 @@ export async function POST(request: Request) {
       `INSERT INTO diagnostic_answers (id, session_id, section_key, question_key, answer_value)
        VALUES ($1, $2, $3, $4, $5)
        ON CONFLICT (session_id, question_key)
-       DO UPDATE SET answer_value = excluded.answer_value, answered_at = datetime('now')`,
+       DO UPDATE SET answer_value = excluded.answer_value, answered_at = NOW()`,
       [
         answerId,
         diagnosticSession.id,
