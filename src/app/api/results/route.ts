@@ -12,13 +12,13 @@ export async function GET() {
     overall_score: number;
     section_scores: Record<string, number>;
     recommendations: Record<string, { level: string; text: string }>;
-    computed_at: string;
+    created_at: string;
   }>(
-    `SELECT dr.overall_score, dr.section_scores, dr.recommendations, dr.computed_at
+    `SELECT dr.overall_score, dr.section_scores, dr.recommendations, dr.created_at
      FROM diagnostic_results dr
      JOIN diagnostic_sessions ds ON dr.session_id = ds.id
      WHERE dr.user_id = $1 AND ds.status = 'completed'
-     ORDER BY dr.computed_at DESC
+     ORDER BY dr.created_at DESC
      LIMIT 1`,
     [session.userId]
   );
@@ -34,6 +34,6 @@ export async function GET() {
     overallScore: Number(result.overall_score),
     sectionScores: result.section_scores,
     recommendations: result.recommendations,
-    computedAt: result.computed_at,
+    computedAt: result.created_at,
   });
 }
