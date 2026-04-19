@@ -11,13 +11,13 @@ interface CompetencyRadarProps {
 export default function CompetencyRadar({
   scores,
   showBenchmark = true,
-  size = 400,
+  size = 300,
 }: CompetencyRadarProps) {
-  const padding = 70;
+  const padding = 60;
   const totalSize = size + padding * 2;
   const cx = totalSize / 2;
   const cy = totalSize / 2;
-  const radius = size * 0.33;
+  const radius = size * 0.38;
   const levels = 5;
   const sections = SECTIONS.map((s) => s.key);
   const labels = SECTIONS.map((s) => s.title);
@@ -60,7 +60,7 @@ export default function CompetencyRadar({
     index: number
   ): { x: number; y: number; anchor: "start" | "middle" | "end" } => {
     const angle = (Math.PI * 2 * index) / n - Math.PI / 2;
-    const r = radius + 40;
+    const r = radius + 36;
     const x = cx + r * Math.cos(angle);
     const y = cy + r * Math.sin(angle);
     let anchor: "start" | "middle" | "end" = "middle";
@@ -72,9 +72,9 @@ export default function CompetencyRadar({
   return (
     <svg
       viewBox={`0 0 ${totalSize} ${totalSize}`}
-      width={totalSize}
-      height={totalSize}
-      className="mx-auto"
+      width="100%"
+      height="auto"
+      className="mx-auto block"
     >
       {/* Grid polygons */}
       {Array.from({ length: levels }, (_, i) => {
@@ -154,7 +154,7 @@ export default function CompetencyRadar({
             textAnchor={anchor}
             style={{
               fontFamily: "var(--font-body)",
-              fontSize: "11px",
+              fontSize: "12px",
               fill: "#9ca3af",
             }}
           >
