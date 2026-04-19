@@ -1,5 +1,4 @@
 "use client";
-
 import { SECTIONS } from "../../data/questions";
 import { BENCHMARK_SCORES } from "@/lib/scoring";
 
@@ -12,7 +11,7 @@ interface CompetencyRadarProps {
 export default function CompetencyRadar({
   scores,
   showBenchmark = true,
-  size = 350,
+  size = 400,
 }: CompetencyRadarProps) {
   const cx = size / 2;
   const cy = size / 2;
@@ -37,11 +36,29 @@ export default function CompetencyRadar({
       .join(" ");
   };
 
+  const splitLabel = (label: string): string[] => {
+    const words = label.split(" ");
+    const lines: string[] = [];
+    let current = "";
+    for (const word of words) {
+      if (current.length === 0) {
+        current = word;
+      } else if ((current + " " + word).length <= 12) {
+        current += " " + word;
+      } else {
+        lines.push(current);
+        current = word;
+      }
+    }
+    if (current) lines.push(current);
+    return lines;
+  };
+
   const getLabelPos = (
     index: number
   ): { x: number; y: number; anchor: "start" | "middle" | "end" } => {
     const angle = (Math.PI * 2 * index) / n - Math.PI / 2;
-    const r = radius + 30;
+    const r = radius + 40;
     const x = cx + r * Math.cos(angle);
     const y = cy + r * Math.sin(angle);
     let anchor: "start" | "middle" | "end" = "middle";
@@ -76,7 +93,6 @@ export default function CompetencyRadar({
           />
         );
       })}
-
       {/* Axis lines */}
       {sections.map((_, i) => {
         const [x, y] = getPoint(i, 100);
@@ -92,7 +108,6 @@ export default function CompetencyRadar({
           />
         );
       })}
-
       {/* Benchmark polygon */}
       {showBenchmark && (
         <polygon
@@ -103,7 +118,6 @@ export default function CompetencyRadar({
           strokeDasharray="6 3"
         />
       )}
-
       {/* User polygon */}
       <polygon
         points={polygon(scores)}
@@ -111,7 +125,6 @@ export default function CompetencyRadar({
         stroke="#c9a84c"
         strokeWidth="2.5"
       />
-
       {/* User dots */}
       {sections.map((key, i) => {
         const [x, y] = getPoint(i, scores[key] || 0);
@@ -127,21 +140,28 @@ export default function CompetencyRadar({
           />
         );
       })}
-
       {/* Labels */}
       {labels.map((label, i) => {
         const { x, y, anchor } = getLabelPos(i);
+        const lines = splitLabel(label);
+        const lineHeight = 14;
+        const totalHeight = (lines.length - 1) * lineHeight;
         return (
           <text
             key={i}
-            x={x}
-            y={y}
             textAnchor={anchor}
-            dominantBaseline="middle"
-            className="text-xs fill-gray-400"
-            style={{ fontFamily: "var(--font-body)" }}
+            style={{ fontFamily: "var(--font-body)", fontSize: "10px", fill: "#9ca3af" }}
           >
-            {label}
+            {lines.map((line, li) => (
+              <tspan
+                key={li}
+                x={x}
+                y={y - totalHeight / 2 + li * lineHeight}
+                dominantBaseline="middle"
+              >
+                {line}
+              </tspan>
+            ))}
           </text>
         );
       })}
