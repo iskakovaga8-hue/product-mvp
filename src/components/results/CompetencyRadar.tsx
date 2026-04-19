@@ -38,6 +38,7 @@ export default function CompetencyRadar({
       .join(" ");
   };
 
+  // Split label into lines of max 16 chars, breaking on word boundaries
   const splitLabel = (label: string): string[] => {
     const words = label.split(" ");
     const lines: string[] = [];
@@ -45,7 +46,7 @@ export default function CompetencyRadar({
     for (const word of words) {
       if (current.length === 0) {
         current = word;
-      } else if ((current + " " + word).length <= 13) {
+      } else if ((current + " " + word).length <= 16) {
         current += " " + word;
       } else {
         lines.push(current);
@@ -146,7 +147,7 @@ export default function CompetencyRadar({
       {labels.map((label, i) => {
         const { x, y, anchor } = getLabelPos(i);
         const lines = splitLabel(label);
-        const lineHeight = 13;
+        const lineHeight = 14;
         const totalHeight = (lines.length - 1) * lineHeight;
         return (
           <text
