@@ -71,7 +71,7 @@ export default function ResultsPage() {
         </div>
 
         {/* Radar - full width */}
-        <div className="bg-navy-light rounded-2xl pt-6 pb-4 px-4 border border-gold/20 animate-fade-in mb-8">
+        <div className="bg-navy-light rounded-2xl pt-6 pb-4 px-4 border border-gold/20 animate-fade-in mb-8" style={{ overflow: "visible" }}>
           <h2 className="text-lg font-heading font-semibold text-white mb-4 text-center">
             Карта компетенций
           </h2>
