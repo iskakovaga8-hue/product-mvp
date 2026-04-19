@@ -1,34 +1,30 @@
 "use client";
 import { SECTIONS } from "../../data/questions";
 import { BENCHMARK_SCORES } from "@/lib/scoring";
-
 interface CompetencyRadarProps {
   scores: Record<string, number>;
   showBenchmark?: boolean;
   size?: number;
 }
-
 export default function CompetencyRadar({
   scores,
   showBenchmark = true,
   size = 300,
 }: CompetencyRadarProps) {
-  const padding = 90; 
+  const padding = 110;
   const totalSize = size + padding * 2;
   const cx = totalSize / 2;
   const cy = totalSize / 2;
-  const radius = size * 0.38;
+  const radius = size * 0.36;
   const levels = 5;
   const sections = SECTIONS.map((s) => s.key);
   const labels = SECTIONS.map((s) => s.title);
   const n = sections.length;
-
   const getPoint = (index: number, value: number): [number, number] => {
     const angle = (Math.PI * 2 * index) / n - Math.PI / 2;
     const r = (value / 100) * radius;
     return [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
   };
-
   const polygon = (values: Record<string, number>): string => {
     return sections
       .map((key, i) => {
@@ -37,8 +33,6 @@ export default function CompetencyRadar({
       })
       .join(" ");
   };
-
-  // Split label into lines of max 16 chars, breaking on word boundaries
   const splitLabel = (label: string): string[] => {
     const words = label.split(" ");
     const lines: string[] = [];
@@ -56,12 +50,11 @@ export default function CompetencyRadar({
     if (current) lines.push(current);
     return lines;
   };
-
   const getLabelPos = (
     index: number
   ): { x: number; y: number; anchor: "start" | "middle" | "end" } => {
     const angle = (Math.PI * 2 * index) / n - Math.PI / 2;
-    const r = radius + 22;
+    const r = radius + 26;
     const x = cx + r * Math.cos(angle);
     const y = cy + r * Math.sin(angle);
     let anchor: "start" | "middle" | "end" = "middle";
@@ -69,13 +62,13 @@ export default function CompetencyRadar({
     else if (Math.cos(angle) > 0.1) anchor = "start";
     return { x, y, anchor };
   };
-
   return (
     <svg
       viewBox={`0 0 ${totalSize} ${totalSize}`}
       width="100%"
       height="auto"
       className="mx-auto block"
+      overflow="visible"
     >
       {/* Grid polygons */}
       {Array.from({ length: levels }, (_, i) => {
